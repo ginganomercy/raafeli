@@ -2,6 +2,7 @@
   <h1>Raafeli (CPU Turbo)</h1>
   <p><strong>Zero-config Python decorator to speed up Deep Learning models on CPU by up to 300%.</strong></p>
   
+  [![PyPI version](https://badge.fury.io/py/raafeli.svg)](https://badge.fury.io/py/raafeli)
   ![Python](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)
   ![License](https://img.shields.io/badge/License-MIT-green)
 </div>
@@ -14,7 +15,20 @@ Deploying large AI models or running them on local machines without a dedicated 
 ## The Solution: Raafeli
 **Raafeli** automatically transforms your heavy FP32 PyTorch models into highly optimized INT8 (Dynamic Quantized) representations under the hood. All it takes is a single decorator. You do not need to change your architecture, deployment pipeline, or weights.
 
-### Quick Start
+---
+
+## Installation
+
+Install Raafeli easily via pip:
+
+```bash
+pip install raafeli
+```
+*(Requires `torch` to be installed in your environment).*
+
+---
+
+## Quick Start
 
 ```python
 import torch
@@ -44,10 +58,12 @@ def predict(model, data):
 output = predict(model, input_data)
 ```
 
-## How It Works
-When you call `@optimize_cpu`, Raafeli hooks into the execution stack. It intercepts the `model` object passed to your function, and aggressively applies `torch.quantization.quantize_dynamic` targeting performance-bound layers (like `Linear` and `LSTM`). 
+## How It Works (Production Features)
+When you call `@optimize_cpu`, Raafeli hooks into the execution stack. 
 
-It caches the optimized model graph back into the object, ensuring the overhead is $0$ on every subsequent call. Your model footprint drops by ~75% and throughput spikes significantly.
+*   **Dynamic Quantization:** It intercepts the `model` object and aggressively applies `torch.quantization.quantize_dynamic` targeting performance-bound layers (like `Linear` and `LSTM`). 
+*   **OOP Caching (Zero Overhead):** It caches the optimized model graph directly into the Python object safely. This ensures the overhead is **0ms** on every subsequent call and prevents memory leaks. Your model footprint drops by ~75% and throughput spikes.
+*   **Smart Device Guard:** If Raafeli detects that your model is running on a GPU (`.cuda()`), it will gracefully bypass the quantization (since INT8 quantization is exclusively a CPU acceleration technique) without crashing your application.
 
 ## Support This Project
 
