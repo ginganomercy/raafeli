@@ -48,3 +48,26 @@ output = predict(model, input_data)
 When you call `@optimize_cpu`, Raafeli hooks into the execution stack. It intercepts the `model` object passed to your function, and aggressively applies `torch.quantization.quantize_dynamic` targeting performance-bound layers (like `Linear` and `LSTM`). 
 
 It caches the optimized model graph back into the object, ensuring the overhead is $0$ on every subsequent call. Your model footprint drops by ~75% and throughput spikes significantly.
+
+## Support This Project
+
+Raafeli is an open-source project built out of passion. If it has saved you valuable GPU hours, deployment costs, or debugging time, consider supporting the creator by following on Instagram!
+
+[![Follow on Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/galaxy_scream)
+
+---
+
+## Contributing & Testing
+
+We welcome PRs! To run the test suite locally and verify your changes:
+```bash
+# Clone the repository
+git clone https://github.com/ginganomercy/raafeli.git
+cd raafeli
+
+# Install with development dependencies
+pip install -e .[dev]
+
+# Run tests
+pytest tests/
+```
