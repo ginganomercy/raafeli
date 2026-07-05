@@ -8,10 +8,10 @@
 
 ---
 
-## ⚡ The Problem: GPU-less Deployments
+## The Problem: GPU-less Deployments
 Deploying large AI models or running them on local machines without a dedicated GPU is painfully slow. Matrix multiplications inside `torch.nn.Linear` layers bottleneck heavily on CPU architectures because they process 32-bit floats natively.
 
-## 🚀 The Solution: Raafeli
+## The Solution: Raafeli
 **Raafeli** automatically transforms your heavy FP32 PyTorch models into highly optimized INT8 (Dynamic Quantized) representations under the hood. All it takes is a single decorator. You do not need to change your architecture, deployment pipeline, or weights.
 
 ### Quick Start
